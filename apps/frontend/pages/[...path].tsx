@@ -2,7 +2,6 @@ import { FC } from 'react';
 import { GetServerSideProps } from 'next';
 
 import { Page } from '@workspace/core/entities';
-import { sectionDefinitions } from '../src/sections';
 import { Metadata } from '@workspace/utils/metadata';
 import { TPageData } from '@workspace/core/entities';
 import { CONNECTOR } from '../src/connector/CONNECTOR';
@@ -20,13 +19,9 @@ export const Index: FC<TPageProps> = ({ page }) => {
         slug={page.slug}
         canonical=""
       />
-      <Page data={page} pageDefinition={pageDefinition} />
+      <Page data={page} />
     </>
   );
-};
-
-const pageDefinition = {
-  registeredSections: sectionDefinitions,
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {

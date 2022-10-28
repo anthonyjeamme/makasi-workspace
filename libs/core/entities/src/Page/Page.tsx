@@ -2,19 +2,18 @@ import {
   SectionContextProvider,
   useSiteContext,
 } from '@workspace/core/contexts';
+
 import { useRouter } from 'next/router';
 import { useRef, useEffect, useState } from 'react';
 import { TPageData, TPageDataSection } from './Page.types';
 
 import styles from './Page.module.scss';
-import { PageNavigation } from '@workspace/editor/ui';
 
 export * from './Page.types';
 
 export const Page: React.FC<{
   data: TPageData;
-  pageDefinition: any;
-}> = ({ data, pageDefinition }) => {
+}> = ({ data }) => {
   const router = useRouter();
 
   const siteContext = useSiteContext();
@@ -23,12 +22,18 @@ export const Page: React.FC<{
   const [n, setN] = useState(0);
 
   useEffect(() => {
+    siteContext.connector.init();
+
+    console.log(siteContext.connector.init());
+  }, []);
+
+  useEffect(() => {
     pageDataRef.current = data;
     setN((n) => n + 1);
   }, [router.asPath]);
 
   const Section = ({ section }: { section: TPageDataSection }) => {
-    const sectionDefinition = pageDefinition.registeredSections.find(
+    const sectionDefinition = siteContext.sections.find(
       (registeredSection) => registeredSection.type === section.type
     );
 
@@ -64,7 +69,7 @@ export const Page: React.FC<{
 
   return (
     <div>
-      <PageNavigation />
+      {/* <PageNavigation /> */}
       <button
         onClick={() => {
           const page = pageDataRef.current;

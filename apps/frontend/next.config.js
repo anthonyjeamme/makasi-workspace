@@ -10,6 +10,10 @@ const nextConfig = {
   nx: {
     svgr: false,
   },
+
+  experimental: {
+    urlImports: ['http://127.0.0.1:5500/'],
+  },
 };
 
 module.exports = withNx(nextConfig);
