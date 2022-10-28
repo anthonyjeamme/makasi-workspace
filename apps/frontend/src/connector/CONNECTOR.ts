@@ -4,13 +4,16 @@ export const CONNECTOR: TConnector = {
   getPage: async (slug: string) => {
     const headers = new Headers({ 'Content-Type': 'application/json' });
 
-    const result = await fetch('http://localhost:4200/api/getPage', {
-      method: 'POST',
-      headers,
-      body: JSON.stringify({
-        slug,
-      }),
-    }).then((result) => result.json());
+    const result = await fetch(
+      `${process.env['NEXT_PUBLIC_API_ENDPOINT']}/getPage`,
+      {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          slug,
+        }),
+      }
+    ).then((result) => result.json());
 
     if (result.notFound) {
       return null;
@@ -21,14 +24,17 @@ export const CONNECTOR: TConnector = {
   createPage: async (slug, page) => {
     const headers = new Headers({ 'Content-Type': 'application/json' });
 
-    const result = await fetch('http://localhost:4200/api/createPage', {
-      method: 'POST',
-      headers,
-      body: JSON.stringify({
-        slug,
-        page,
-      }),
-    }).then((result) => result.json());
+    const result = await fetch(
+      `${process.env['NEXT_PUBLIC_API_ENDPOINT']}/createPage`,
+      {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          slug,
+          page,
+        }),
+      }
+    ).then((result) => result.json());
 
     if (!result.success) return null;
 
@@ -37,7 +43,7 @@ export const CONNECTOR: TConnector = {
   deletePage: async (slug) => {
     const headers = new Headers({ 'Content-Type': 'application/json' });
 
-    await fetch('http://localhost:4200/api/deletePage', {
+    await fetch(`${process.env['NEXT_PUBLIC_API_ENDPOINT']}/deletePage`, {
       method: 'POST',
       headers,
       body: JSON.stringify({
@@ -48,14 +54,17 @@ export const CONNECTOR: TConnector = {
   updatePage: async (slug, page) => {
     const headers = new Headers({ 'Content-Type': 'application/json' });
 
-    const result = await fetch('http://localhost:4200/api/updatePage', {
-      method: 'POST',
-      headers,
-      body: JSON.stringify({
-        slug,
-        page,
-      }),
-    }).then((result) => result.json());
+    const result = await fetch(
+      `${process.env['NEXT_PUBLIC_API_ENDPOINT']}/updatePage`,
+      {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          slug,
+          page,
+        }),
+      }
+    ).then((result) => result.json());
 
     if (!result.success) return null;
 

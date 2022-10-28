@@ -55,11 +55,14 @@ export const PageNavigation = () => {
 const getAllPages = async () => {
   const headers = new Headers({ 'Content-Type': 'application/json' });
 
-  const result = await fetch('http://localhost:4200/api/getAllPages', {
-    method: 'POST',
-    headers,
-    body: JSON.stringify({}),
-  }).then((result) => result.json());
+  const result = await fetch(
+    `${process.env['NEXT_PUBLIC_API_ENDPOINT']}/getAllPages`,
+    {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({}),
+    }
+  ).then((result) => result.json());
 
   return result.pages;
 };
