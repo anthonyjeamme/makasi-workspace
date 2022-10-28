@@ -1,0 +1,20 @@
+{
+  "id": "2",
+  "slug": "/",
+  "metadata": { "title": "Home", "description": "This is an about page" },
+  "sections": [
+    {
+      "id": "X",
+      "type": "head",
+      "data": {
+        "title": "Buy a wonderful forest",
+        "description": "Want to have a hidden home to kidnap people ? You can get an amazing forest for good price.",
+        "image": "https://images.unsplash.com/photo-1511884642898-4c92249e20b6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
+        "buttons": [
+          { "id": "a", "style": "primary", "data": "Get yours" },
+          { "id": "b", "style": "normal", "data": "I want to know more" }
+        ]
+      }
+    }
+  ]
+}

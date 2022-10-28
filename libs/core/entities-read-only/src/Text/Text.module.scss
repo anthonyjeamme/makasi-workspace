@@ -1,0 +1,11 @@
+.Text {
+  display: flex;
+  & > input {
+    border: 0;
+    font: inherit;
+    padding: 0;
+    display: inline-block;
+    width: 100%;
+    background-color: transparent;
+  }
+}

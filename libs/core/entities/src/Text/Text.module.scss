@@ -1,0 +1,12 @@
+.Text {
+  outline: none;
+
+  transition: outline 250ms;
+  outline: 2px dashed rgba(white, 0);
+  outline-offset: 4px;
+  border-radius: 4px;
+
+  &:focus {
+    outline: 2px dashed rgba(white, 0.3);
+  }
+}
