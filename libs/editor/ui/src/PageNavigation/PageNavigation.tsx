@@ -36,7 +36,7 @@ export const PageNavigation = () => {
           <button
             onClick={() => {
               connector.deletePage(page.slug).then(() => {
-                getAllPages().then(setPages);
+                connector.getAllPages().then(setPages);
               });
             }}
           >
@@ -47,7 +47,7 @@ export const PageNavigation = () => {
 
       <CreatePageButton
         handleRefresh={() => {
-          getAllPages().then(setPages);
+          connector.getAllPages().then(setPages);
         }}
       />
     </div>
