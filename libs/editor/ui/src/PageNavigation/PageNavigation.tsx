@@ -15,7 +15,9 @@ export const PageNavigation = () => {
   const { connector } = useSiteContext();
 
   useEffect(() => {
-    getAllPages().then(setPages);
+    setTimeout(() => {
+      connector.getAllPages().then(setPages);
+    }, 500);
   }, []);
 
   return (
