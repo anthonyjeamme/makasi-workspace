@@ -8,6 +8,7 @@ import { useRef, useEffect, useState } from 'react';
 import { TPageData, TPageDataSection } from './Page.types';
 
 import styles from './Page.module.scss';
+import { PageNavigation } from '@workspace/editor/ui';
 
 export * from './Page.types';
 
@@ -69,7 +70,7 @@ export const Page: React.FC<{
 
   return (
     <div>
-      {/* <PageNavigation /> */}
+      <PageNavigation />
       <button
         onClick={() => {
           const page = pageDataRef.current;
