@@ -1,13 +1,10 @@
 import { Page } from '@workspace/core/entities';
 import { Metadata } from '@workspace/utils/metadata';
-import { getPage, updatePage } from '../src/connector/page/page.connector';
+import { GetServerSideProps } from 'next';
+import { CONNECTOR } from '../src/connector/CONNECTOR';
 import { sectionDefinitions } from '../src/sections';
 
-export async function Index() {
-  const page = await getPage({ slug: '/' });
-
-  console.log(page);
-
+export function Index({ page }) {
   return (
     <>
       <Metadata
@@ -16,32 +13,26 @@ export async function Index() {
         slug={page.slug}
         canonical=""
       />
-      <Page
-        data={page}
-        pageDefinition={pageDefinition}
-        handleUpdate={(data) => {
-          updatePage({ page: data });
-        }}
-      />
+      <Page data={page} pageDefinition={pageDefinition} />
     </>
   );
 }
 
-// export const getServerSideProps: GetServerSideProps = async (context) => {
-//   const page = await getPage({ slug: '/' });
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const page = await CONNECTOR.getPage('/');
 
-//   if (!page) {
-//     return {
-//       notFound: true,
-//     };
-//   }
+  if (!page) {
+    return {
+      notFound: true,
+    };
+  }
 
-//   return {
-//     props: {
-//       page: page.page,
-//     },
-//   };
-// };
+  return {
+    props: {
+      page: page,
+    },
+  };
+};
 
 export default Index;
 

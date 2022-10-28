@@ -1,5 +1,7 @@
+import { SiteContextProvider } from '@workspace/core/contexts';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
+import { CONNECTOR } from '../src/connector/CONNECTOR';
 import './styles.css';
 
 function CustomApp({ Component, pageProps }: AppProps) {
@@ -9,7 +11,9 @@ function CustomApp({ Component, pageProps }: AppProps) {
         <title>Welcome to frontend!</title>
       </Head>
       <main className="app">
-        <Component {...pageProps} />
+        <SiteContextProvider connector={CONNECTOR}>
+          <Component {...pageProps} />
+        </SiteContextProvider>
       </main>
     </>
   );

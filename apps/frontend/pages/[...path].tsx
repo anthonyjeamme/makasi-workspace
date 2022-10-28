@@ -1,11 +1,11 @@
+import { FC } from 'react';
 import { GetServerSideProps } from 'next';
 
 import { Page } from '@workspace/core/entities';
 import { sectionDefinitions } from '../src/sections';
 import { Metadata } from '@workspace/utils/metadata';
 import { TPageData } from '@workspace/core/entities';
-import { FC } from 'react';
-import { getPage } from '../src/connector/page/page.connector';
+import { CONNECTOR } from '../src/connector/CONNECTOR';
 
 type TPageProps = {
   page: TPageData;
@@ -14,6 +14,12 @@ type TPageProps = {
 export const Index: FC<TPageProps> = ({ page }) => {
   return (
     <>
+      <Metadata
+        title={page.metadata.title}
+        description={page.metadata.description}
+        slug={page.slug}
+        canonical=""
+      />
       <Page data={page} pageDefinition={pageDefinition} />
     </>
   );
@@ -26,7 +32,7 @@ const pageDefinition = {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const slug = '/' + (context.query['path'] as string[]).join('/');
 
-  const page = await getPage({ slug });
+  const page = await CONNECTOR.getPage(slug);
 
   if (!page) {
     return {
@@ -36,7 +42,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   return {
     props: {
-      page: page.page,
+      page: page,
     },
   };
 };

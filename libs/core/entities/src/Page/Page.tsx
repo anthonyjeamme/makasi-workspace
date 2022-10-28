@@ -1,22 +1,33 @@
-import { SectionContextProvider } from '@workspace/core/contexts';
-import { useRef, useState } from 'react';
-import { TPageData } from './Page.types';
+import {
+  SectionContextProvider,
+  useSiteContext,
+} from '@workspace/core/contexts';
+import { useRouter } from 'next/router';
+import { useRef, useEffect, useState } from 'react';
+import { TPageData, TPageDataSection } from './Page.types';
 
 import styles from './Page.module.scss';
+import { PageNavigation } from '@workspace/editor/ui';
 
 export * from './Page.types';
 
 export const Page: React.FC<{
   data: TPageData;
   pageDefinition: any;
-  handleUpdate: (page: TPageData) => void;
-}> = ({ data, pageDefinition, handleUpdate }) => {
+}> = ({ data, pageDefinition }) => {
+  const router = useRouter();
+
+  const siteContext = useSiteContext();
   const pageDataRef = useRef<TPageData>(data);
+  const saveButtonRef = useRef<HTMLButtonElement>(null);
   const [n, setN] = useState(0);
 
-  const saveButtonRef = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    pageDataRef.current = data;
+    setN((n) => n + 1);
+  }, [router.asPath]);
 
-  const Section = ({ section }) => {
+  const Section = ({ section }: { section: TPageDataSection }) => {
     const sectionDefinition = pageDefinition.registeredSections.find(
       (registeredSection) => registeredSection.type === section.type
     );
@@ -25,7 +36,6 @@ export const Page: React.FC<{
 
     return (
       <SectionContextProvider
-        data={section.data}
         getData={() => {
           const sectionData: any = pageDataRef.current.sections.find(
             (_) => _.id === section.id
@@ -54,11 +64,12 @@ export const Page: React.FC<{
 
   return (
     <div>
+      <PageNavigation />
       <button
         onClick={() => {
           const page = pageDataRef.current;
 
-          handleUpdate(page);
+          siteContext.connector.updatePage(page.slug, page);
 
           if (saveButtonRef.current)
             saveButtonRef.current.classList.add(styles['hidden']);

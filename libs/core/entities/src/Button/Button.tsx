@@ -6,7 +6,7 @@ export const Button = ({
   className = '',
 }: {
   id: string;
-  className: string;
+  className?: string;
 }) => {
   const sectionContext = useSectionContext();
   const elementRef = useRef<HTMLButtonElement>(null);

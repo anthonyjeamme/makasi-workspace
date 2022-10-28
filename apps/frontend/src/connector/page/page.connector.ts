@@ -1,4 +1,4 @@
-import { TPageData } from '@workspace/core/entities-read-only';
+import { TPageData } from '@workspace/core/entities';
 
 type TGetPageProps = { slug: string };
 type TGetPage = (props: TGetPageProps) => Promise<TGetPageReturns>;

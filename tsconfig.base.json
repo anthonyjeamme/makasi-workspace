@@ -21,6 +21,7 @@
       "@workspace/core/entities-read-only": [
         "libs/core/entities-read-only/src/index.ts"
       ],
+      "@workspace/editor/ui": ["libs/editor/ui/src/index.ts"],
       "@workspace/utils/metadata": ["libs/utils/metadata/src/index.ts"]
     }
   },
