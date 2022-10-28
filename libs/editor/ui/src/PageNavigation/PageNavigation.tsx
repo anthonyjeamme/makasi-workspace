@@ -33,15 +33,17 @@ export const PageNavigation = () => {
             {page.slug}
           </button>
 
-          <button
-            onClick={() => {
-              connector.deletePage(page.slug).then(() => {
-                connector.getAllPages().then(setPages);
-              });
-            }}
-          >
-            <TrashSimple />
-          </button>
+          {page.slug !== '/' && (
+            <button
+              onClick={() => {
+                connector.deletePage(page.slug).then(() => {
+                  connector.getAllPages().then(setPages);
+                });
+              }}
+            >
+              <TrashSimple />
+            </button>
+          )}
         </div>
       ))}
 
