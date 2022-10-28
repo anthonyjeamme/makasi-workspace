@@ -4,7 +4,9 @@ import { GetServerSideProps } from 'next';
 import { Page } from '@workspace/core/entities';
 import { Metadata } from '@workspace/utils/metadata';
 import { TPageData } from '@workspace/core/entities';
-import { CONNECTOR } from '../src/connector/CONNECTOR';
+import { FirebaseServerConnector } from '../src/connectors/FirebaseConnector/FirebaseConnector.server';
+
+import serviceAccountKey from '../firebaseServiceAccountKey.json';
 
 type TPageProps = {
   page: TPageData;
@@ -27,7 +29,7 @@ export const Index: FC<TPageProps> = ({ page }) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const slug = '/' + (context.query['path'] as string[]).join('/');
 
-  const page = await CONNECTOR.getPage(slug);
+  const page = await FirebaseServerConnector(serviceAccountKey).getPage(slug);
 
   if (!page) {
     return {

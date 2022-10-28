@@ -14,6 +14,7 @@ export const Text = ({ id }) => {
     <div
       className={styles['Text']}
       contentEditable
+      spellCheck={false}
       ref={elementRef}
       onKeyUp={(e) => {
         if (!elementRef.current) return;
